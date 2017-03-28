@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Vote-O-Matic</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="main.css">
+
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <link rel='manifest' href='manifest.json'>
+
+</head>
+<body>
+
+<br>
+
+<div class="page" id="start">
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1 class="display-3">
+                Vote-O-Matic
+            </h1>
+            <p class="lead">
+                This is a simple app to make things easier to vote for.
+            </p>
+            <hr class="my-4">
+            <p>
+                Currently only supports AV. More to come!
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Start</a>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page" id="people" hidden>
+
+    <div class="container">
+
+        <div class="jumbotron">
+
+            <h2>
+                How many people are there?
+            </h2>
+
+            <br>
+
+            <input class="form-control form-control-lg" type="number" value="3" id="people-input">
+
+            <br>
+
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Next</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page" id="options" hidden>
+
+    <div class="container">
+
+        <div class="jumbotron">
+
+            <h2>
+                What are the options?
+            </h2>
+
+            <br>
+
+            <div class="scroll-box">
+
+                <div id="options-input" class="list-group">
+
+                    <div class="option list-group-item flex-column align-items-start clearfix">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Put your options here...">
+                            <span hidden class="input-group-btn">
+                              <button class="btn btn-danger btn-secondary" type="button">X</button>
+                         </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <p class="lead">
+                <a id="options-next" class="btn btn-primary btn-lg" href="#" role="button">Next</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page" id="voting" hidden>
+
+    <div class="container">
+
+        <div class="jumbotron">
+
+            <h2>
+                Person #<span id="voting-ind"></span> Vote
+            </h2>
+
+            <br>
+
+            <div class="scroll-box">
+
+                <div id="voting-input" class="list-group">
+
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <p class="lead">
+                <a id="voting-next" class="btn btn-primary btn-lg" href="#" role="button">Next</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page" id="results" hidden>
+
+    <div class="container">
+
+        <div class="jumbotron">
+
+            <h2>
+                And the winner is:
+            </h2>
+
+            <br>
+
+            <p id="result">
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+<script src="main.js" type="application/javascript"></script>
+
+</body>
+</html>

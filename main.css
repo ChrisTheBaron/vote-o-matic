@@ -1,0 +1,26 @@
+body {
+
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+.page {
+
+    height: calc(100vh - 56px);
+
+}
+
+.page > .container, .page > .container > .jumbotron {
+
+    height: 100%;
+
+}
+
+.scroll-box {
+
+    max-height: calc(100vh - 287px);
+    overflow-y: scroll;
+
+}
+

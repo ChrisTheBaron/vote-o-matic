@@ -18,7 +18,7 @@ $(function () {
 
     var people = 0;
 
-    var options = {};
+    var options = [];
 
     var currentPerson = 0;
 
@@ -73,9 +73,14 @@ $(function () {
         $('.page#options #options-input .option').each(function (key) {
             var option = $(this).find('input').val();
             if (option.length > 0) {
-                options["" + key] = option;
+                options[key] = option;
             }
         });
+
+        if(options.length < 2) {
+            alert("At least 2 options required");
+            return false;
+        }
 
         doVotingForPerson(0);
 

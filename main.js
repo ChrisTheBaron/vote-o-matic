@@ -17,16 +17,30 @@ function enable(elem) {
 $(function () {
 
     var people = 0;
-
     var options = [];
-
     var currentPerson = 0;
-
-    var votes = {};
-
+    var votes = [];
     var adjustedVotes = [];
 
+    function reset() {
+
+        people = 0;
+        options = [];
+        currentPerson = 0;
+        votes = [];
+        adjustedVotes = [];
+
+        $('.page#options #options-input .option').filter(function (key, val) {
+            return key != 0;
+        }).remove();
+
+        hide($('.page#options #options-input .option span'));
+        $('.page#options #options-input .option input').val("");
+
+    }
+
     $('.page#start .btn').click(function () {
+        reset();
         hide($('.page#start'));
         show($('.page#people'));
     });
@@ -40,7 +54,7 @@ $(function () {
 
     });
 
-    var optionUpdate = function (e) {
+    var optionUpdate = function () {
 
         // if there isn't a blank box, add one
         var empty = $('.page#options #options-input .option input').filter(function () {
@@ -48,7 +62,7 @@ $(function () {
         });
 
         if (empty.length == 0) {
-            $('.page#options #options-input').append('<div class="option list-group-item flex-column align-items-start clearfix">\n\n    <div class="input-group">\n        <input type="text" class="form-control" placeholder="Put your options here...">\n        <span hidden class="input-group-btn">\n                <button class="btn btn-danger btn-secondary" type="button">X</button>\n                </span>\n    </div>\n\n</div>');
+            $('.page#options #options-input').append('<div class="option list-group-item flex-column align-items-start clearfix">\n\n    <div class="input-group">\n        <input type="text" class="form-control" placeholder="Put your options here...">\n        <span hidden class="input-group-btn">\n                <button tabindex="-1" class="btn btn-danger btn-secondary" type="button">X</button>\n                </span>\n    </div>\n\n</div>');
         }
 
         if ($(this).val().length > 0) {
@@ -77,7 +91,7 @@ $(function () {
             }
         });
 
-        if(options.length < 2) {
+        if (options.length < 2) {
             alert("At least 2 options required");
             return false;
         }
@@ -144,7 +158,7 @@ $(function () {
         return maxInd;
     }
 
-    function getLeastPreferreds(round) {
+    function getLeastPreferred(round) {
         var minInds = [];
         var minVal = null;
         $.each(round, function (k, v) {
@@ -186,28 +200,40 @@ $(function () {
                 break;
             }
 
-            var roundLeastPreferreds = getLeastPreferreds(round);
+            var roundLeastPreferred = getLeastPreferred(round);
 
-            for (var i in roundLeastPreferreds) {
+            if (roundLeastPreferred.length == options.length) {
+                // dead tie, remove all first preferences
+                for (var i in votes) {
+                    votes[i].shift();
+                }
+            } else {
+
+                var toRemove;
+
+                if (roundLeastPreferred.length > 1) {
+                    toRemove = roundLeastPreferred[Math.floor(Math.random() * roundLeastPreferred.length)];
+                } else {
+                    toRemove = roundLeastPreferred[0];
+                }
+
                 for (var k in votes) {
                     if (votes.hasOwnProperty(k)) {
-                        var ind = votes[k].indexOf(i);
-                        if (ind > -1) {
+                        var ind = votes[k].indexOf(toRemove);
+                        if (ind >= 0) {
                             votes[k].splice(ind, 1);
                         }
                     }
                 }
+
             }
 
         }
 
+        console.log(options);
         console.log(adjustedVotes);
 
-        if (winner != null) {
-            return winner;
-        }
-
-        console.error("Shouldn't get here lol");
+        return winner;
 
     }
 
@@ -215,12 +241,23 @@ $(function () {
         storeVotes(currentPerson);
         if (++currentPerson == people) {
             var winner = calculateWinner();
-            $('.page#results #result').text(options[winner]);
+            if (winner != null) {
+                $('.page#results #result').text(options[winner]);
+            } else if (adjustedVotes[adjustedVotes.length - 1][0].length == 0) {
+                $('.page#results #result').text("nobody. It was a tie.");
+            } else {
+                $('.page#results #result').text('you. You broke it. Well done.');
+            }
             hide($('.page#voting'));
             show($('.page#results'));
         } else {
             doVotingForPerson(currentPerson);
         }
     });
+
+    $('.page#results #start-again').click(function () {
+        hide($('.page#results'));
+        show($('.page#start'));
+    })
 
 });

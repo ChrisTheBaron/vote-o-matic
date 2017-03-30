@@ -7,6 +7,6 @@
   "lang": "en-GB",
   "name": "Vote-O-Matic",
   "short_name": "VOM",
-  "start_url": "/vote-o-matic",
+  "start_url": "/",
   "theme_color": "#03A9F4"
 }
